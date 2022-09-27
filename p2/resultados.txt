@@ -1,0 +1,63 @@
+·Make clean:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ make clean
+	rm -f *.o
+	rm -f datos*.bin
+	rm -f ._datos*.bin
+	rm -f practica2_mostrar
+	rm -f practica2_std
+	rm -f practica2_mmap
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ make clean
+	rm -f *.o
+	rm -f datos*.bin
+	rm -f ._datos*.bin
+	rm -f practica2_mostrar
+	rm -f practica2_std
+	rm -f practica2_mmap
+		
+·Make sin argumentos:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ make
+	gcc -Wall -c muestranotas.c
+	gcc -Wall muestranotas.o -o practica2_mostrar
+	gcc -Wall -c ordenanotas_std.c
+	gcc -Wall -c practica2.c
+	gcc -Wall ordenanotas_std.o practica2.o -o practica2_std
+	gcc -Wall -c ordenanotas_mmap.c
+	gcc -Wall ordenanotas_mmap.o practica2.o -o practica2_mmap
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ make
+	make: No se hace nada para 'all'.
+
+·Programa sin argumentos:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ ./practica2_std
+	Número de argumentos invalido.
+
+·Programa invocando nombre de archivo incorrecto:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ ./practica2_mmap hola.bin
+	Error al abrir archivo: No such file or directory
+
+·Practica2_mostrar invocando datosord.bin:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ ./practica2_mostrar datosord.bin | head
+	   9035476:10.00:10.00:10.00:Almazan Vallinas, Alberto
+	  53108492:10.00: 8.50: 9.25:Garcia Valero, Julian
+	   9025780: 8.50:10.00: 9.25:Matias Perez, Javier
+	  47226383: 8.50: 9.50: 9.00:Lopez Bermejo, Josu
+	  50111390: 8.00:10.00: 9.00:Ropero Rey, David
+	  53437545:10.00: 7.50: 8.75:Vallejo Roman, Raul
+	  75767484: 9.50: 7.50: 8.50:Fernandez Arco, Mario
+	  53413708:10.00: 7.00: 8.50:Gonzalez Tato, Fatima
+	   9043545: 9.50: 7.50: 8.50:Medina Moreno, Jose
+	  51940918: 7.00:10.00: 8.50:Rodriguez Barea, Ana
+
+·Diff -s con ambos programas:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ ./practica2_std datos.bin
+	Intercambios: 13989
+	Tiempo empleado: 296495us
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ diff -s datos.bin datosord.bin
+	Los archivos datos.bin y datosord.bin son idénticos
+
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ ./practica2_mmap datos.bin
+	Intercambios: 13989
+	Tiempo empleado: 109352us
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p2$ diff -s datos.bin datosord.bin
+	Los archivos datos.bin y datosord.bin son idénticos
+
+

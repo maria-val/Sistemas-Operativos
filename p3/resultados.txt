@@ -1,0 +1,63 @@
+·Make clean:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ make clean
+	rm -f *.o
+	rm -f practica3_test
+	rm -f practica3_1
+	rm -f practica3_2
+	rm -f practica3_test_th
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ make clean
+	rm -f *.o
+	rm -f practica3_test
+	rm -f practica3_1
+	rm -f practica3_2
+	rm -f practica3_test_th
+
+·Make sin argumentos:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ make
+	gcc -g -Wall -c practica3_test.c -lm
+	gcc -g -Wall -c integra.c -lm
+	gcc practica3_test.o integra.o -o practica3_test -lm
+	gcc -g -Wall -c practica3.c -lm
+	gcc -g -Wall -c integra_th.c -lpthread
+	gcc -g -Wall -c f1.c -lm
+	gcc practica3.o integra_th.o f1.o -o practica3_1 -lm -lpthread
+	gcc -g -Wall -c f2.c -lm
+	gcc practica3.o integra_th.o f2.o -o practica3_2 -lm -lpthread
+	gcc -g -Wall -c practica3_test_th.c -lpthread -lm
+	gcc practica3_test_th.o integra_th.o -o practica3_test_th -lpthread -lm
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ make
+	make: No se hace nada para 'all'.
+
+·Programa sin argumentos:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ ./practica3_2
+	Argumentos incorrectos. Uso: 
+	./practica3 <numero de hilos> <numero de divisiones>
+
+·Practica3_test invocado para 1.000.000 divisiones e intervalo [-1000, 0]:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ ./practica3_test -1000 0 10000000
+	Valor calculado: 0.99999982144885
+
+·Practica3 invocado para 1 hilo y 105 divisiones:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ ./practica3_1 1 105
+	Valor calculado: 3.14049998205283
+
+·Practica3 invocado para 10 hilo y 105 divisiones:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ ./practica3_1 10 105
+	Valor calculado: 3.14049998156122
+
+·Practica3 invocado para 1 hilo y 400.000.000 divisiones:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ time ./practica3_1 1 400000000
+	Valor calculado: 3.14159265358976
+
+	real	0m22,884s
+	user	0m22,801s
+	sys	0m0,040s
+
+·Practica3 invocado para 4 hilo y 400.000.000 divisiones:
+	maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p3$ time ./practica3_1 4 400000000
+	Valor calculado: 3.14159264652333
+
+	real	0m12,234s
+	user	0m24,071s
+	sys	0m0,104s
+

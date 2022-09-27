@@ -1,0 +1,98 @@
+APARTADO 2.5
+	·Timeout de 5 segundos:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pimc 100000000 5
+		Proceso lanzado (PID=3449)
+		Finalizado después de 100000000 iteraciones.
+		Valor calculado: 3.141694
+
+	·Con mayor número de iteraciones:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pimc 1000000000 5
+		Proceso lanzado (PID=3463)
+		Finalizado por timeout tras 128490416 iteraciones.
+		Valor calculado: 3.141533
+	
+	·Interrumpiendo el programa:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pimc 1000000000 5
+		Proceso lanzado (PID=3465)
+		^CFinalizado por interrupción.
+		Valor calculado: 3.141345
+
+	·Envío de señal SIGUSR1:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pimc 1000000000 30
+		Proceso lanzado (PID=3474)
+		Resultado parcial solicitado (SIGUSR1 de 3468)
+		Valor calculado hasta ahora: 3.141607
+		Resultado parcial solicitado (SIGUSR1 de 3468)
+		Valor calculado hasta ahora: 3.141612
+		Resultado parcial solicitado (SIGUSR1 de 3468)
+		Valor calculado hasta ahora: 3.141593
+		Resultado parcial solicitado (SIGUSR1 de 3468)
+		Valor calculado hasta ahora: 3.141611
+		^CFinalizado por interrupción.
+		Valor calculado: 3.141621
+
+
+APARTADO 4.4
+	·Prueba de ejemplo:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pipes 100000000 1000 4
+		Valor calculado: 3.141592659240120
+
+	
+	·Con el mismo número de divisiones el resultado es el mismo independientemente del número de paquetes de trabajo y procesos:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pipes 109 1 1
+		Valor calculado: 3.141578625589900
+	
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pipes 109 10 1
+		Valor calculado: 3.141578625589900
+	
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_pipes 109 10 4
+		Valor calculado: 3.141578625589900
+
+	
+	·Aquí comprobamos que la velocidad de ejecución es menor cuanto más procesos worker lanzamos:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ time ./practica4_pipes 400000000 10 1
+		Valor calculado: 3.141592643126812
+
+		real	0m18,719s
+		user	0m18,706s
+		sys	0m0,004s
+
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ time ./practica4_pipes 400000000 10 2
+		Valor calculado: 3.141592643126812
+
+		real	0m9,800s
+		user	0m19,257s
+		sys	0m0,096s
+	
+APARTADO 4.5
+	·Prueba sin el parámetro p:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ mkfifo trabajo
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ mkfifo resultados
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_gatherer resultados &
+		[1] 3056
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_worker trabajo resultados &
+		[2] 3057
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_worker trabajo resultados &
+		[3] 3059
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_worker trabajo resultados &
+		[4] 3060
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ ./practica4_dispatcher 1000000000 100 trabajo
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ Valor calculado: 3.141592640605672
+
+		[1]   Hecho                   ./practica4_gatherer resultados
+		[2]   Hecho                   ./practica4_worker trabajo resultados
+		[3]-  Hecho                   ./practica4_worker trabajo resultados
+		[4]+  Hecho                   ./practica4_worker trabajo resultados		
+
+	·Prueba realizando make run_fifos:
+		maria@mariaVM:~/Repositorio/labssoo22-maria-dominguez-valdivieso/p4$ make run_fifos
+		mkfifo trabajo
+		mkfifo resultados
+		./practica4_dispatcher 100000000 100 trabajo &
+		./practica4_worker trabajo resultados &
+		./practica4_worker trabajo resultados &
+		./practica4_worker trabajo resultados &
+		./practica4_gatherer resultados
+		Valor calculado: 3.141592659214872
+
+
